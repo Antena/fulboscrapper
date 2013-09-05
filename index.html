@@ -14,6 +14,7 @@
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/main.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body ng-app="app" ng-controller="AppController">
@@ -23,33 +24,58 @@
 
         <div class="container">
             <div class="header">
-                <h3 class="text-muted">Project name</h3>
-            </div>
-
-            <div class="jumbotron">
-                <h1>Jumbotron heading</h1>
-                <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                <h3 class="text-muted">FulboScrapper</h3>
+                <a href="https://www.google.com/fusiontables/exporttable?query=select+*+from+1bshumjUcNd6QnB0KlT6d4856BimkgTCnlw1OgeU" class="btn btn-primary pull-right">Download data</a>
             </div>
 
             <div class="row">
-                <div class="col-lg-12">
-                    <table class="table-bordered">
+                <div class="col-lg-4">
+                    <form>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Torneo</label>
+                            <div class="col-lg-10">
+                                <select ng-model="search.torneo"
+                                        ng-options="t for t in tournaments"
+                                        ng-change="selectTournament()">
+                                    <option value="">-- elegir torneo --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-4">
+                    <form>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Fecha</label>
+                            <div class="col-lg-10">
+                                <select ng-model="search.fecha"
+                                        ng-options="f for f in fechas"
+                                        ng-change="update()">
+                                    <option value="">-- elegir fecha --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row" ng-show="games" ng-cloak>
+                <div class="col-lg-3 text-center">
+                    <h3>{{ search.torneo }}</h3>
+                </div>
+                <div class="col-lg-8">
+                    <table class="table table-bordered">
                         <thead>
                         <tr>
-                            <th>Torneo</th>
-                            <th>Date</th>
-                            <th>Fecha</th>
-                            <th>Partido</th>
-                            <th>Resultado</th>
+                            <th colspan="4">Fecha {{ search.fecha }}</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="game in games">
-                            <td>{{ game.torneo }}</td>
                             <td>{{ game.date }}</td>
-                            <td>{{ game.fecha }}</td>
-                            <td>{{ game.local }} vs {{ game.visitante }}</td>
-                            <td>{{ game.resultado }}</td>
+                            <td class="text-right">{{ game.local }}</td>
+                            <td class="text-center">{{ game.resultado }}</td>
+                            <td class="text-left">{{ game.visitante }}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -57,7 +83,6 @@
             </div>
 
             <div class="footer">
-                <p>&copy; Company 2013</p>
             </div>
 
         </div> <!-- /container -->
@@ -67,6 +92,7 @@
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/vendor/angular.min.js"></script>
         <script src="js/plugins.js"></script>
+        <script src="js/FTClient.js"></script>
         <script src="js/main.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
