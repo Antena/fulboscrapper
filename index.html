@@ -12,10 +12,8 @@
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="css/main.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body ng-app="app" ng-controller="AppController">
@@ -23,33 +21,46 @@
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
 
-        <!-- Add your site or application content here -->
         <div class="container">
-            <div class="col-lg-12">
-                <h1>fulboscrapper</h1>
-
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Torneo</th>
-                        <th>Date</th>
-                        <th>Fecha</th>
-                        <th>Partido</th>
-                        <th>Resultado</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="game in games">
-                        <td>{{ game.torneo }}</td>
-                        <td>{{ game.date }}</td>
-                        <td>{{ game.fecha }}</td>
-                        <td>{{ game.local }} vs {{ game.visitante }}</td>
-                        <td>{{ game.resultado }}</td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="header">
+                <h3 class="text-muted">Project name</h3>
             </div>
-        </div>
+
+            <div class="jumbotron">
+                <h1>Jumbotron heading</h1>
+                <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Torneo</th>
+                            <th>Date</th>
+                            <th>Fecha</th>
+                            <th>Partido</th>
+                            <th>Resultado</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="game in games">
+                            <td>{{ game.torneo }}</td>
+                            <td>{{ game.date }}</td>
+                            <td>{{ game.fecha }}</td>
+                            <td>{{ game.local }} vs {{ game.visitante }}</td>
+                            <td>{{ game.resultado }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p>&copy; Company 2013</p>
+            </div>
+
+        </div> <!-- /container -->
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
