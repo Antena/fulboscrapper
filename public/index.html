@@ -25,7 +25,7 @@
         <div class="container">
             <div class="header">
                 <h3 class="text-muted">FulboScrapper</h3>
-                <a href="https://www.google.com/fusiontables/exporttable?query=select+*+from+1bshumjUcNd6QnB0KlT6d4856BimkgTCnlw1OgeU" class="btn btn-primary pull-right">Download data</a>
+                <a href="https://www.google.com/fusiontables/exporttable?query=select+*+from+{{ ftTable }}" class="btn btn-primary pull-right">Download data</a>
             </div>
 
             <div class="row">
@@ -37,7 +37,6 @@
                                 <select ng-model="search.torneo"
                                         ng-options="t for t in tournaments"
                                         ng-change="selectTournament()">
-                                    <option value="">-- elegir torneo --</option>
                                 </select>
                             </div>
                         </div>
@@ -51,7 +50,6 @@
                                 <select ng-model="search.fecha"
                                         ng-options="f for f in fechas"
                                         ng-change="update()">
-                                    <option value="">-- elegir fecha --</option>
                                 </select>
                             </div>
                         </div>
@@ -59,7 +57,7 @@
                 </div>
             </div>
 
-            <div class="row" ng-show="games" ng-cloak>
+            <div class="row" ng-show="games" ng-init="update()" ng-cloak>
                 <div class="col-lg-3 text-center">
                     <h3>{{ search.torneo }}</h3>
                 </div>
@@ -67,7 +65,11 @@
                     <table class="table table-bordered">
                         <thead>
                         <tr>
-                            <th colspan="4">Fecha {{ search.fecha }}</th>
+                            <th colspan="4">
+                                <span class="glyphicon glyphicon-backward clickable" ng-click="prev()"></span>
+                                Fecha {{ search.fecha }}
+                                <span class="glyphicon glyphicon-forward clickable" ng-click="next()"></span>
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
