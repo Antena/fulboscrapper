@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# coding=utf8
 
 #import scraperwiki
 import json
@@ -19,23 +20,26 @@ a.writeheader()
 i=0
 #ciclo por los torneos
 for tour in tournaments:    
-    print "Scrappeando " + tour + "..."
+    
 
     # armo la url donde esta la data y hago una magia para que me den los resutlados
     url = "http://www.futbolxxi.com/Torneo.aspx?" + urllib.urlencode({'ID' : tour})    
     page = lxml.html.fromstring(urllib.urlopen(url).read())
     validtation = page.cssselect("input[id='__EVENTVALIDATION']")
-    print url
+    state = page.cssselect("input[id='__VIEWSTATE']")
+    print "Scrappeando " + tour + "... "  + url
+    print "Validation: " + validtation[0].get('value')
 
     # ciclo por las fechas
-    fechas = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]    
+    fechas = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
     for fecha in fechas:
         print "Fecha " + str(fecha)
 
         # armo el request para que me de la data de esa fecha
         post_params = [    
             ('BF'+str(fecha), 'Fecha '+str(fecha)),        
-            ('__EVENTVALIDATION', validtation[0].get('value'))
+            ('__EVENTVALIDATION', validtation[0].get('value')),
+            ('__VIEWSTATE', state[0].get('value')),
         ]
         resp_data = urllib.urlencode(post_params)
         response = StringIO.StringIO()
@@ -48,6 +52,7 @@ for tour in tournaments:
         
         curl.perform()
         root = lxml.html.fromstring(response.getvalue())                
+        validation2 = root.cssselect("input[id='__EVENTVALIDATION']")        
         
         # busco en el html la tabla con los resultados y hago el scrapping propiamente dicho
         for tr in root.cssselect("table[id='DataGrid2'] tr"):    
@@ -56,8 +61,8 @@ for tour in tournaments:
                 'torneo': tour,
                 'fecha': str(fecha),
                 'date': tds[0].text_content(),
-                'local': tds[1].text_content().strip().encode('utf8'),
-                'visitante': tds[3].text_content().strip().encode('utf8'),
+                'local': tds[1].text_content().strip().encode('utf8').replace("Ãº","ú").replace("Ã©","é").replace("Ã³","ó").replace("Ã¡","á").replace("Ã±","ñ").replace("Ã­","í"),
+                'visitante': tds[3].text_content().strip().encode('utf8').replace("Ãº","ú").replace("Ã©","é").replace("Ã³","ó").replace("Ã¡","á").replace("Ã±","ñ").replace("Ã­","í"),
                 'resultado': tds[2].text_content().strip()
             }
             print data
